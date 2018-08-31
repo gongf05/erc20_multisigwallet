@@ -87,11 +87,11 @@ contract Token is StandardToken {
             emit AccountFrozen(msg.sender);
             return false;
         }
-        require(_to != address(0));
-        // record the receiver address into list
-        addressLUT.push(_to);
+
         // transfer fund first if sender is not frozen
         require(super.transfer(_to, _value));
+        // record the receiver address into list
+        addressLUT.push(_to);
         // automatically freeze receiver that is not whitelisted
         if (frozenAccount[_to] == false && whiteList[_to] == false) {
             frozenAccount[_to] = true;
@@ -112,12 +112,11 @@ contract Token is StandardToken {
             emit AccountFrozen(_from);
             return false;
         }
-        // des address should be valid
-        require(_to != address(0));
-        // add receiver to lookup table
-        addressLUT.push(_to);
+
         // transfer fund
         require(super.transferFrom(_from, _to, _value));
+        // add receiver to lookup table
+        addressLUT.push(_to);
         // automatically freeze account
         if (frozenAccount[_to] == false && whiteList[_to] == false) {
             frozenAccount[_to] = true;
