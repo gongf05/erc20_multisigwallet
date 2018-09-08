@@ -3,6 +3,7 @@ pragma solidity ^0.4.24;
 import './Token.sol';
 
 /// @title Multisignature wallet - Allows multiple parties to agree on transactions before execution.
+
 contract MultiSigWallet {
 
     Token public mToken;
